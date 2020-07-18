@@ -4,9 +4,25 @@ import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
+// redux 工具
+import { composeWithDevTools } from 'redux-devtools-extension'
+import thunk from 'redux-thunk'
+import logger from 'redux-logger'
+
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import reducers from './store'
+
+const store = createStore(
+  reducers,
+  composeWithDevTools(applyMiddleware(logger, thunk))
+)
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 )
